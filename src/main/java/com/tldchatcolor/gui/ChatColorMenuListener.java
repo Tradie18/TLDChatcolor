@@ -58,7 +58,27 @@ public class ChatColorMenuListener implements Listener {
             }
             case CLEAR -> {
                 store.setColor(player.getUniqueId(), config.defaultChatColor());
+                store.setModifiers(player.getUniqueId(), java.util.List.of());
                 player.sendMessage(messages.format("color-cleared"));
+                player.closeInventory();
+            }
+            case MODIFIER -> {
+                if (!player.hasPermission("tldchatcolor.modifier")) {
+                    player.sendMessage(messages.format("no-permission-modifier"));
+                    return;
+                }
+                java.util.List<String> current = new java.util.ArrayList<>(store.getModifiers(player.getUniqueId()));
+                if (current.contains(option.chatColor())) {
+                    current.remove(option.chatColor());
+                    store.setModifiers(player.getUniqueId(), current);
+                    player.sendMessage(messages.format("modifier-cleared"));
+                } else {
+                    current.add(option.chatColor());
+                    store.setModifiers(player.getUniqueId(), current);
+                    player.sendMessage(messages.format("modifier-selected", Map.of(
+                            "modifier", option.chatColor()
+                    )));
+                }
                 player.closeInventory();
             }
             case COLOR -> {

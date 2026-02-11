@@ -33,9 +33,13 @@ public class ChatColorPlaceholder extends PlaceholderExpansion {
             return "";
         }
         String stored = plugin.getPlayerColorStore().getColor(player.getUniqueId());
-        if (stored == null || stored.isEmpty()) {
-            return plugin.getChatColorConfig().defaultChatColor();
+        String modifier = plugin.getPlayerColorStore().getModifier(player.getUniqueId());
+        String resolvedColor = (stored == null || stored.isEmpty())
+                ? plugin.getChatColorConfig().defaultChatColor()
+                : stored;
+        if (modifier == null || modifier.isEmpty()) {
+            return resolvedColor;
         }
-        return stored;
+        return modifier + resolvedColor;
     }
 }

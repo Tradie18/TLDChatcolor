@@ -89,7 +89,12 @@ public class TLDChatcolorPlugin extends JavaPlugin implements CommandExecutor, T
             return true;
         }
 
-        player.openInventory(chatColorConfig.createMenu());
+        String stored = playerColorStore.getColor(player.getUniqueId());
+        List<String> modifiers = playerColorStore.getModifiers(player.getUniqueId());
+        String selectedColor = (stored == null || stored.isEmpty())
+                ? chatColorConfig.defaultChatColor()
+                : stored;
+        player.openInventory(chatColorConfig.createMenu(player, selectedColor, modifiers));
         return true;
     }
 
@@ -146,6 +151,7 @@ public class TLDChatcolorPlugin extends JavaPlugin implements CommandExecutor, T
         }
         if (chatColorConfig.hexBlacklist().contains(normalized)) {
             playerColorStore.setColor(player.getUniqueId(), chatColorConfig.defaultChatColor());
+            playerColorStore.setModifiers(player.getUniqueId(), List.of());
             player.sendMessage(messages.format("hex-blacklisted"));
             return;
         }

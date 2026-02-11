@@ -16,3 +16,6 @@ permissions:
   tldchatcolor.reload:
     description: Allows reloading ChatColor configs
     default: op
+  tldchatcolor.modifier:
+    description: Allows the player to use bold/italic modifiers
+    default: op
