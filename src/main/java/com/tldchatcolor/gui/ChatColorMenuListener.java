@@ -15,11 +15,9 @@ import java.util.Map;
 
 public class ChatColorMenuListener implements Listener {
     private final TLDChatcolorPlugin plugin;
-    private final HexInputTracker hexInputTracker;
 
-    public ChatColorMenuListener(TLDChatcolorPlugin plugin, HexInputTracker hexInputTracker) {
+    public ChatColorMenuListener(TLDChatcolorPlugin plugin) {
         this.plugin = plugin;
-        this.hexInputTracker = hexInputTracker;
     }
 
     @EventHandler
@@ -55,8 +53,7 @@ public class ChatColorMenuListener implements Listener {
 
         switch (option.type()) {
             case HEX -> {
-                hexInputTracker.request(player);
-                player.sendMessage(messages.format("hex-prompt"));
+                player.sendMessage(messages.format("hex-command"));
                 player.closeInventory();
             }
             case CLEAR -> {

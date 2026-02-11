@@ -1,15 +1,109 @@
 gui:
   size: 27
+  title: "<green>Select a Chat Color</green>"
+  filler:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    display-name: ""
+    lore: []
 default-color: "<white>"
 hex-blacklist:
   - "000000"
 colors:
-  green:
+  black:
+    material: BLACK_WOOL
+    display-name: "<black>Black</black>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<black>"
+    slot: 0
+    type: "color"
+  dark_blue:
+    material: BLUE_WOOL
+    display-name: "<dark_blue>Dark Blue</dark_blue>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_blue>"
+    slot: 1
+    type: "color"
+  dark_green:
     material: GREEN_WOOL
+    display-name: "<dark_green>Dark Green</dark_green>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_green>"
+    slot: 2
+    type: "color"
+  dark_aqua:
+    material: CYAN_WOOL
+    display-name: "<dark_aqua>Dark Aqua</dark_aqua>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_aqua>"
+    slot: 3
+    type: "color"
+  dark_red:
+    material: RED_WOOL
+    display-name: "<dark_red>Dark Red</dark_red>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_red>"
+    slot: 4
+    type: "color"
+  dark_purple:
+    material: PURPLE_WOOL
+    display-name: "<dark_purple>Dark Purple</dark_purple>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_purple>"
+    slot: 5
+    type: "color"
+  gold:
+    material: ORANGE_WOOL
+    display-name: "<gold>Gold</gold>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<gold>"
+    slot: 6
+    type: "color"
+  gray:
+    material: LIGHT_GRAY_WOOL
+    display-name: "<gray>Gray</gray>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<gray>"
+    slot: 7
+    type: "color"
+  dark_gray:
+    material: GRAY_WOOL
+    display-name: "<dark_gray>Dark Gray</dark_gray>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<dark_gray>"
+    slot: 8
+    type: "color"
+  blue:
+    material: LIGHT_BLUE_WOOL
+    display-name: "<blue>Blue</blue>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<blue>"
+    slot: 9
+    type: "color"
+  green:
+    material: LIME_WOOL
     display-name: "<green>Green</green>"
     lore:
       - "<gray>Click to select.</gray>"
     chat-color: "<green>"
+    slot: 10
+    type: "color"
+  aqua:
+    material: CYAN_WOOL
+    display-name: "<aqua>Aqua</aqua>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<aqua>"
     slot: 11
     type: "color"
   red:
@@ -18,14 +112,30 @@ colors:
     lore:
       - "<gray>Click to select.</gray>"
     chat-color: "<red>"
-    slot: 13
+    slot: 12
     type: "color"
-  blue:
-    material: BLUE_WOOL
-    display-name: "<blue>Blue</blue>"
+  light_purple:
+    material: MAGENTA_WOOL
+    display-name: "<light_purple>Light Purple</light_purple>"
     lore:
       - "<gray>Click to select.</gray>"
-    chat-color: "<blue>"
+    chat-color: "<light_purple>"
+    slot: 13
+    type: "color"
+  yellow:
+    material: YELLOW_WOOL
+    display-name: "<yellow>Yellow</yellow>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<yellow>"
+    slot: 14
+    type: "color"
+  white:
+    material: WHITE_WOOL
+    display-name: "<white>White</white>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<white>"
     slot: 15
     type: "color"
   clear:
@@ -33,12 +143,12 @@ colors:
     display-name: "<white>Clear</white>"
     lore:
       - "<gray>Reset to default.</gray>"
-    slot: 21
+    slot: 22
     type: "clear"
   hex:
     material: MAGENTA_WOOL
     display-name: "<light_purple>Custom Hex</light_purple>"
     lore:
-      - "<gray>Click and type a hex color.</gray>"
-    slot: 23
+      - "<gray>Click to get the command.</gray>"
+    slot: 24
     type: "hex"

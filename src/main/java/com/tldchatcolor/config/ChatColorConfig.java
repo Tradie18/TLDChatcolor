@@ -19,8 +19,10 @@ public class ChatColorConfig {
     private final MiniMessage miniMessage;
     private final Logger logger;
     private final int guiSize;
+    private final String guiTitle;
     private final String defaultChatColor;
     private final Set<String> hexBlacklist;
+    private final FillerOption fillerOption;
     private final Map<Integer, ChatColorOption> optionsBySlot;
 
     public ChatColorConfig(File file, MiniMessage miniMessage, Logger logger) {
@@ -29,14 +31,16 @@ public class ChatColorConfig {
 
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         this.guiSize = normalizeSize(config.getInt("gui.size", 27));
+        this.guiTitle = config.getString("gui.title", "<green>Select a Chat Color</green>");
         this.defaultChatColor = config.getString("default-color", "<white>");
         this.hexBlacklist = loadHexBlacklist(config.getStringList("hex-blacklist"));
+        this.fillerOption = loadFillerOption(config.getConfigurationSection("gui.filler"));
         this.optionsBySlot = loadOptions(config);
     }
 
-    public Inventory createMenu(Component title) {
+    public Inventory createMenu() {
         ChatColorMenuHolder holder = new ChatColorMenuHolder(optionsBySlot);
-        Inventory inventory = Bukkit.createInventory(holder, guiSize, title);
+        Inventory inventory = Bukkit.createInventory(holder, guiSize, miniMessage.deserialize(guiTitle));
 
         for (Map.Entry<Integer, ChatColorOption> entry : optionsBySlot.entrySet()) {
             ChatColorOption option = entry.getValue();
@@ -54,6 +58,17 @@ public class ChatColorConfig {
             inventory.setItem(entry.getKey(), item);
         }
 
+        if (fillerOption.enabled()) {
+            ItemStack filler = createFillerItem();
+            if (filler != null) {
+                for (int slot = 0; slot < guiSize; slot++) {
+                    if (inventory.getItem(slot) == null) {
+                        inventory.setItem(slot, filler);
+                    }
+                }
+            }
+        }
+
         return inventory;
     }
 
@@ -67,6 +82,10 @@ public class ChatColorConfig {
 
     public Set<String> hexBlacklist() {
         return hexBlacklist;
+    }
+
+    public Component guiTitle() {
+        return miniMessage.deserialize(guiTitle);
     }
 
     private Map<Integer, ChatColorOption> loadOptions(YamlConfiguration config) {
@@ -128,6 +147,40 @@ public class ChatColorConfig {
         return Collections.unmodifiableSet(normalized);
     }
 
+    private FillerOption loadFillerOption(ConfigurationSection section) {
+        if (section == null) {
+            return new FillerOption(false, Material.BLACK_STAINED_GLASS_PANE, "", List.of());
+        }
+        boolean enabled = section.getBoolean("enabled", false);
+        String materialName = section.getString("material", "BLACK_STAINED_GLASS_PANE");
+        Material material = Material.matchMaterial(materialName);
+        if (material == null) {
+            logger.warning("Invalid filler material: " + materialName);
+            material = Material.BLACK_STAINED_GLASS_PANE;
+        }
+        String displayName = section.getString("display-name", "");
+        List<String> lore = section.getStringList("lore");
+        return new FillerOption(enabled, material, displayName, lore);
+    }
+
+    private ItemStack createFillerItem() {
+        Material material = fillerOption.material();
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (!fillerOption.displayName().isEmpty()) {
+            meta.displayName(miniMessage.deserialize(fillerOption.displayName()));
+        }
+        if (!fillerOption.lore().isEmpty()) {
+            List<Component> lore = new ArrayList<>();
+            for (String line : fillerOption.lore()) {
+                lore.add(miniMessage.deserialize(line));
+            }
+            meta.lore(lore);
+        }
+        item.setItemMeta(meta);
+        return item;
+    }
+
     public enum OptionType {
         COLOR,
         CLEAR,
@@ -147,5 +200,8 @@ public class ChatColorConfig {
 
     public record ChatColorOption(String id, Material material, String displayName, List<String> lore,
                                   String chatColor, OptionType type) {
+    }
+
+    private record FillerOption(boolean enabled, Material material, String displayName, List<String> lore) {
     }
 }
