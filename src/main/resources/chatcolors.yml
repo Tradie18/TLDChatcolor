@@ -1,0 +1,44 @@
+gui:
+  size: 27
+default-color: "<white>"
+hex-blacklist:
+  - "000000"
+colors:
+  green:
+    material: GREEN_WOOL
+    display-name: "<green>Green</green>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<green>"
+    slot: 11
+    type: "color"
+  red:
+    material: RED_WOOL
+    display-name: "<red>Red</red>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<red>"
+    slot: 13
+    type: "color"
+  blue:
+    material: BLUE_WOOL
+    display-name: "<blue>Blue</blue>"
+    lore:
+      - "<gray>Click to select.</gray>"
+    chat-color: "<blue>"
+    slot: 15
+    type: "color"
+  clear:
+    material: WHITE_WOOL
+    display-name: "<white>Clear</white>"
+    lore:
+      - "<gray>Reset to default.</gray>"
+    slot: 21
+    type: "clear"
+  hex:
+    material: MAGENTA_WOOL
+    display-name: "<light_purple>Custom Hex</light_purple>"
+    lore:
+      - "<gray>Click and type a hex color.</gray>"
+    slot: 23
+    type: "hex"
